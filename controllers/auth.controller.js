@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { User } from "../models/user.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { CustomError } from "../utils/customError.js";
 import { verifyJWT } from "../utils/verifyJwt.js";
+import { CustomError } from "../utils/CustomError.js";
 
 export const signup = asyncHandler(async (req, res, next) => {
     if(!req.body)return next(new CustomError("Please provide a body",400))
