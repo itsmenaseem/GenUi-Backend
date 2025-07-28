@@ -63,9 +63,10 @@ export const login = asyncHandler(async (req, res, next) => {
 
 export const logout = asyncHandler((async (req, res, next) => {
     res.cookie("refresh-token", "", {
-        maxAge: 0,
+         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
         httpOnly: true,
-        sameSite: "strict"
+        secure: true,             // ✅ required for cross-site HTTPS
+        sameSite: "None", 
     })
     return res.status(200).json({
         success: true,
