@@ -18,10 +18,12 @@ export const signup = asyncHandler(async (req, res, next) => {
     const accessToken = user.generateAccessToken()
     const refreshToken = user.generateRefreshToken()
     res.cookie("refresh-token", refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        sameSite: "strict",
-        httpOnly: true
-    })
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    httpOnly: true,
+    secure: true,             // ✅ required for cross-site HTTPS
+    sameSite: "None",         // ✅ allow cross-site cookie sending
+    });
+
     return res.status(201).json({
         success: true,
         message: "User created",
@@ -44,10 +46,12 @@ export const login = asyncHandler(async (req, res, next) => {
     userObj.password = undefined
     userObj.sessions = undefined
     res.cookie("refresh-token", refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        sameSite: "strict",
-        httpOnly: true
-    })
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    httpOnly: true,
+    secure: true,             // ✅ required for cross-site HTTPS
+    sameSite: "None",         // ✅ allow cross-site cookie sending
+    });
+
     return res.status(200).json({
         success: true,
         message: "Logged in successfully",
