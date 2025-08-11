@@ -13,7 +13,6 @@ Requirements:
 - Use axios only if needed, no other external packages.
 - Do NOT include markdown formatting, explanation, or any <a href="#"> links.
 - Return ONLY the raw React component code.
-- also add extra 2 new lines before  and  5 new line after the code
 Component description:
 ${prompt}
 `;
@@ -49,5 +48,5 @@ ${prompt}
  const cleanCode = raw
   .replace(/^```[a-z]*\n/i, "") // removes ```javascript\n (case-insensitive)
   .replace(/```$/, "");         // removes trailing ```
-  return cleanCode;
+  return `\n\n${cleanCode}`;
 }
