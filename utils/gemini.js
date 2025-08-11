@@ -2,18 +2,17 @@ import { ai } from "../config/gemini.config.js";
 
 export async function generateReactCode(prompt, imageBuffer) {
 const systemMessage = `
-Generate a well-formatted React component that uses React.useState, React.useRef, and React.useEffect.
+You must generate a full React component and nothing else. Follow these strict rules:
 
-Requirements:
-- Wrap all code inside a single function called App.
+- The entire code is inside a single function called App.
+- Do NOT output only hooks or fragments of code; output the complete React component code.
 - Do NOT include any import, export, or require statements.
 - Use React.useState, React.useRef, and React.useEffect directly (no ES6 imports).
-- Use Tailwind CSS for styling.
-- The code must run in a browser environment where React and ReactDOM are loaded via CDN.
-- Use axios only if needed, no other external packages.
-- Do NOT include markdown formatting, explanation, or any <a href="#"> links.
-- Return ONLY the raw React component code.
-- also add extra 2 new lines before  and  5 new line after the code
+- Use Tailwind CSS classes for styling all elements.
+- The component must run directly in a browser environment where React and ReactDOM are loaded via CDN.
+- Use axios only if absolutely needed; no other external packages.
+- Output ONLY the JavaScript code of the component, exactly as it should appear in the browser.
+
 Component description:
 ${prompt}
 `;
@@ -49,5 +48,5 @@ ${prompt}
  const cleanCode = raw
   .replace(/^```[a-z]*\n/i, "") // removes ```javascript\n (case-insensitive)
   .replace(/```$/, "");         // removes trailing ```
-  return cleanCode;
+  return `\n\n${cleanCode}\n\n`;
 }
